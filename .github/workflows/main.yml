@@ -44,16 +44,12 @@ jobs:
           echo "$RUNNER_TEMP/theos/bin" >> "$GITHUB_PATH"
 
       - name: Download base Filza IPA
-        env:
-          BASE_IPA_URL: ${{ secrets.BASE_IPA_URL }}
         run: |
-          test -n "$BASE_IPA_URL" || {
-            echo "Configure the BASE_IPA_URL repository secret." >&2
-            exit 1
-          }
           curl --fail --location --silent --show-error \
-            "$BASE_IPA_URL" \
+            "https://github.com/0xjohnnydev/FilzaSlop/releases/download/v1.2.0/FilzaSlop-v1.2.0-unsigned.ipa" \
             --output filza27.2/base/FilzaSlop-v1.2.0-unsigned.ipa
+          echo "e719ebb2b3babfb43c4d4e21904ec7c223f8e4ff5e634d4a2cbad9a5d103da27  filza27.2/base/FilzaSlop-v1.2.0-unsigned.ipa" \
+            | shasum --check --status
 
       - name: Build public IPA
         if: ${{ inputs.build == 'public' || inputs.build == 'both' }}
