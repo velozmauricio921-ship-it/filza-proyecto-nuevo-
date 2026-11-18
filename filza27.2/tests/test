@@ -1,0 +1,4 @@
+#!/bin/dash
+echo "worse_query test executable OK"
+echo "pwd: $(pwd)"
+echo "uid: ${UID:-unknown}"
