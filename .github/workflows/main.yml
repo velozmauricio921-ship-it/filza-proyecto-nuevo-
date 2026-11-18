@@ -19,8 +19,6 @@ permissions:
 jobs:
   build:
     runs-on: macos-15-intel
-    env:
-      BASE_IPA: ${{ runner.temp }}/FilzaSlop-v1.2.0-unsigned.ipa
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
@@ -47,6 +45,8 @@ jobs:
 
       - name: Download base Filza IPA
         run: |
+          BASE_IPA="$RUNNER_TEMP/FilzaSlop-v1.2.0-unsigned.ipa"
+          echo "BASE_IPA=$BASE_IPA" >> "$GITHUB_ENV"
           mkdir -p "$(dirname "$BASE_IPA")"
           curl --fail --location --silent --show-error \
             "https://github.com/0xjohnnydev/FilzaSlop/releases/download/v1.2.0/FilzaSlop-v1.2.0-unsigned.ipa" \
